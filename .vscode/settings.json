@@ -1,0 +1,9 @@
+{
+    "idf.adapterTargetName": "esp32s2",
+    "idf.openOcdConfigs": [
+        "board/esp32s2-kaluga-1.cfg"
+    ],
+    "idf.port": "/dev/ttyUSB0",
+    "idf.flashType": "UART",
+    "idf.portWin": "COM8"
+}
