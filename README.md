@@ -1,10 +1,7 @@
-# ESP32 S2 FTM Anchor
+# ESP32 S2 FTM STA
 
 This software is based on this example: [https://github.com/espressif/esp-idf/tree/master/examples/wifi/ftm](https://github.com/espressif/esp-idf/tree/master/examples/wifi/ftm).
 
-The software launches on start a soft AP with FTM responder support. The *ssid* of the AP is *ftm_MAC*, where *MAC* is the MAC address of the module.
-
-This software is intended to be used in conjunction with the ESP32 S2 FTM TAG, which is available here: [https://github.com/valentinbarral/esp32s2-ftm-tag](https://github.com/valentinbarral/esp32s2-ftm-tag)
 
 ## USE
 
