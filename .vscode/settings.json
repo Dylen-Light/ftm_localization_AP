@@ -5,7 +5,7 @@
     ],
     "idf.port": "/dev/ttyUSB0",
     "idf.flashType": "UART",
-    "idf.portWin": "COM15",
+    "idf.portWin": "COM14",
     "files.associations": {
         "event_groups.h": "c",
         "esp_console.h": "c"

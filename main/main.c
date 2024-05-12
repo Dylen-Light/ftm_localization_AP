@@ -18,7 +18,7 @@
 
 #define CONFIG_LESS_INTERFERENCE_CHANNEL 11
 #define CONFIG_SEND_FREQUENCY 1
-static const uint8_t CONFIG_CSI_SEND_MAC[] = {0x1a, 0x00, 0x00, 0x00, 0x00, 0x00};
+//static const uint8_t CONFIG_CSI_SEND_MAC[] = {0x1a, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 static bool s_reconnect = true;
 static const char *TAG_ANCHOR = "ftm-anchor";
@@ -95,7 +95,7 @@ void initialise_wifi(void)
     ESP_ERROR_CHECK(esp_wifi_config_espnow_rate(ESP_IF_WIFI_STA, WIFI_PHY_RATE_MCS0_SGI));
     //ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
     ESP_ERROR_CHECK(esp_wifi_set_channel(CONFIG_LESS_INTERFERENCE_CHANNEL, WIFI_SECOND_CHAN_BELOW));
-    ESP_ERROR_CHECK(esp_wifi_set_mac(WIFI_IF_STA, CONFIG_CSI_SEND_MAC));
+    //ESP_ERROR_CHECK(esp_wifi_set_mac(WIFI_IF_STA, CONFIG_CSI_SEND_MAC));
     initialized = true;
 }
 
@@ -147,9 +147,9 @@ void app_main(void)
         // 记录mac地址至mac_add数组
     ESP_ERROR_CHECK(esp_base_mac_addr_get(&mac[0]));
     sprintf(&mac_add[0], "ftm_%02X%02X%02X%02X%02X%02X", (unsigned char)mac[0], (unsigned char)mac[1], (unsigned char)mac[2], (unsigned char)mac[3], (unsigned char)mac[4], (unsigned char)mac[5]);
-        
+    ESP_ERROR_CHECK(esp_wifi_set_mac(WIFI_IF_STA, mac));
 
-    start_wifi_ap(mac_add, "ftmftmftmftm"); // mac地址作为ssid，后面是密码
+    start_wifi_ap(mac_add, "ftmftmftmftm"); // mac地址（STA接口地址）作为ssid，后面是密码
 
     ESP_ERROR_CHECK(esp_wifi_get_bandwidth(ESP_IF_WIFI_AP, &bw));
 
@@ -169,9 +169,9 @@ void app_main(void)
      *        ESP-NOW protocol see: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/network/esp_now.html
      */
     ESP_ERROR_CHECK(esp_now_init());
-    ESP_ERROR_CHECK(esp_now_set_pmk((uint8_t *)"pmk1234567890123"));
+    //ESP_ERROR_CHECK(esp_now_set_pmk((uint8_t *)"pmk1234567890123"));
     esp_now_peer_info_t peer = {
-        .channel   = 0,//表示同AP信道
+        .channel   = CURRENT_CHANNEL,//同AP信道
         .ifidx     = WIFI_IF_STA,    
         .encrypt   = false,   
         .peer_addr = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff},//广播
